@@ -1,8 +1,8 @@
 
-# Skill assessment - 1 
+# Skill assessment - 2
 
 ## AIM
-Write an assembly language program in 8051 to find the largest number from a given set of N numbers stored in memory. Display the result in AL register.
+Write an assembly language program in 8051 to generate a 250 ms delay using Timer 1 in Mode 1 and blink an LED connected to Port 0.5 continuously.
 
 ## APPARATUS REQUIRED
 - Personal Computer  
@@ -13,27 +13,24 @@ Write an assembly language program in 8051 to find the largest number from a giv
 
 ```
 ORG 0000H
-iMOV R0, #30H
-MOV R1, #05H
-MOV A, @R0
-INC R0
-DEC R1
-LOOP: MOV B, @R0
-      CJNE A, B, CHECK
-      SJMP NEXT
-CHECK: JNC NEXT     
-       MOV A, B     
-NEXT: INC R0
-      DJNZ R1, LOOP
-MOV P1, A           
-HERE: SJMP HERE
+MAIN: MOV TMOD, #10H   
+      CLR P0.5         
+AGAIN: MOV TH1, #9EH   
+        MOV TL1, #58H   
+        SETB TR1        
+WAIT:   JNB TF1, WAIT  
+        CLR TR1         
+        CLR TF1         
+        CPL P0.5        
+        SJMP AGAIN      
 END
 ```
 
 ### OUTPUT:
 
-<img width="1919" height="1144" alt="Screenshot 2025-10-24 212854" src="https://github.com/user-attachments/assets/e1ca7cb7-6112-48f4-a372-8db6dafe71a6" />
+<img width="1919" height="1140" alt="Screenshot 2025-10-24 215455" src="https://github.com/user-attachments/assets/4397b901-520f-4abc-b4af-0c32dd6e319d" />
 
+<img width="1919" height="1141" alt="Screenshot 2025-10-24 215505" src="https://github.com/user-attachments/assets/6e04f850-9c23-4dfe-9337-92c3ef1db6e2" />
 
 ### RESULT:
-Thus the largest number from a given set of N numbers using 8051 KEIL was done and shown the output in AL register.
+Thus a 250 ms delay using Timer 1 in Mode 1 and blink an LED connected to Port 0.5 continuously using 8051 KEIL was done and shown the output.
